@@ -8,8 +8,8 @@ class MoviesController < ApplicationController
       @movies = @movies.sort_by { |movie| movie.send(sorter.to_sym) }
     end
     @ratings = params[:ratings]
-    if !@ratings
-      @ratings=Hash[Movie.all_ratings.collect { |item| [item, ""] } ]
+    unless @ratings
+      @ratings = Hash[Movie.all_ratings.collect { |item| [item, ""] }]
     end
     @movies = @movies.select { |movie| @ratings.key?(movie.send(:rating)) }
 
