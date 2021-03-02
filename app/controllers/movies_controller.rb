@@ -2,7 +2,6 @@
 class MoviesController < ApplicationController
   def index
     @movies = Movie.all
-    @all_ratings = %w[G PG PG-13 R]
     sorter = params[:sort_by]
     if sorter
       @movies = @movies.sort_by { |movie| movie.send(sorter.to_sym) }
