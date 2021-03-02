@@ -2,11 +2,7 @@
 class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
-    @movies = Movie.all
-    sorter = params[:sort_by]
-    if sorter
-      @movies = @movies.sort_by { |movie| movie.send(sorter.to_sym) }
-    end
+    @movies = Movie.order(params[:sort_by])
     @ratings = params[:ratings]
     unless @ratings
       @ratings = Hash[Movie.all_ratings.collect { |item| [item, ""] }]
