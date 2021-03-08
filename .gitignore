@@ -5,7 +5,12 @@ db/schema.rb
 log/
 db/*.sqlite3
 tmp/
+.DS_Store
+
 
 # bundler state
 /.bundle
 /vendor/bundle/
+
+# JetBrains RubyMine
+.idea/

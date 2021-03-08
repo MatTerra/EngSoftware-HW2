@@ -1,11 +1,17 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
+    if params[:sort_by]
+      session[:sort_by] = params[:sort_by]
+    end
+    if params[:ratings]
+      session[:ratings] = params[:ratings]
+    end
     @all_ratings = Movie.all_ratings
-    @movies = Movie.order(params[:sort_by])
-    @ratings = params[:ratings]
+    @movies = Movie.order(session[:sort_by])
+    @ratings = session[:ratings]
     unless @ratings
-      @ratings = Hash[Movie.all_ratings.collect { |item| [item, ""] }]
+      @ratings = Hash[@all_ratings.collect { |item| [item, ""] }]
     end
     @movies = @movies.select { |movie| @ratings.key?(movie.send(:rating)) }
 
